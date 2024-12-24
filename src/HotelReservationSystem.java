@@ -26,8 +26,8 @@ public class HotelReservationSystem {
                System.out.println("HOTEL MANAGEMENT SYSTEM");
                Scanner scn = new Scanner(System.in);
                System.out.println("1. Reserve a Room");
-               System.out.println("2. View Reserve Room");
-               System.out.println("3. Get Room Number");
+               System.out.println("2. View Reserves Room");
+               System.out.println("3. View Room By Room Number");
                System.out.println("4. Update Reserve Room");
                System.out.println("5. Delete Reserve Room");
                System.out.println("0. Exit");
@@ -39,10 +39,10 @@ public class HotelReservationSystem {
                        reserveRoom(conn, scn);
                        break;
                    case 2:
-                       viewReserveRoom(conn, scn);
+                       viewReservesRoom(conn, scn);
                        break;
                    case 3:
-//                       getRoomNumber(conn, scn);
+                       getReserveRoomByRoomNumber(conn, scn);
                        break;
                    case 4:
 //                       updateReserveRoom(conn, scn);
@@ -73,6 +73,8 @@ public class HotelReservationSystem {
         try{
             System.out.println("Enter guest name: ");
             String guestName = scn.next();
+            scn.nextLine();
+
             System.out.println("Enter room number: ");
             int roomNum = scn.nextInt();
             System.out.println("Enter contact number: ");
@@ -99,7 +101,7 @@ public class HotelReservationSystem {
     }
 
     // Get all data
-    private static void viewReserveRoom(Connection conn, Scanner scn){
+    private static void viewReservesRoom(Connection conn, Scanner scn){
 
             String sql = "SELECT * FROM reservation";
             try(Statement stm = conn.createStatement()){
@@ -135,6 +137,38 @@ public class HotelReservationSystem {
                     System.out.println("Error: "+ e.getMessage());
             }
 
+
+    }
+
+    // Get Data By Room Number
+    private  static void getReserveRoomByRoomNumber(Connection conn, Scanner scn){
+
+        System.out.println("Enter Your Room Number: ");
+        int roomNumber = scn.nextInt();
+        try {
+
+            String sql = "SELECT * FROM reservation WHERE room_number=?";
+
+            PreparedStatement prstm = conn.prepareStatement(sql);
+            prstm.setInt(1, roomNumber);
+            ResultSet  result = prstm.executeQuery();
+
+            if(result.next()){
+
+                System.out.println("ID\tGust Name\tRoom Number\tContact Number ");
+                    int reservId = result.getInt("reser_id");
+                    String gustName = result.getString("guest_name");
+                    int roomNum = result.getInt("room_number");
+                    String contactNum = result.getString("contact_number");
+
+                    System.out.println(reservId +"\t"+ gustName + "\t" + roomNum + "\t" + contactNum);
+
+            }else{
+                System.out.println("Data not found");
+            }
+        }catch (SQLException e){
+            System.out.print("Error: " + e.getMessage());
+        }
 
     }
 }
