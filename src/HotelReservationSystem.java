@@ -106,22 +106,33 @@ public class HotelReservationSystem {
 
                     ResultSet result = stm.executeQuery(sql);
 
-                    if(result.next()){
-
-                        String gustName = result.getString("guest_name");
-                        int roomNum = result.getInt("room_number");
-                        String contactNum = result.getString("contact_number");
-
-                        System.out.println(gustName +" "+ roomNum +" "+ contactNum);
-
-                    }else{
+                    // Check is result is empty
+                    if(!result.isBeforeFirst()){
                         System.out.println("Data not found");
+                        return;
                     }
+
+
+                            System.out.println("ID\tGust Name\tRoom Number\tContact Number ");
+
+                        //Iterate on the result
+                            while (result.next()) {
+
+                                int reservId = result.getInt("reser_id");
+                                String gustName = result.getString("guest_name");
+                                int roomNum = result.getInt("room_number");
+                                String contactNum = result.getString("contact_number");
+
+
+                                System.out.println(reservId +"\t"+ gustName + "\t" + roomNum + "\t" + contactNum);
+                            }
+
+
 
 
             }catch(SQLException e){
 
-                    System.out.println(e.getMessage());
+                    System.out.println("Error: "+ e.getMessage());
             }
 
 
