@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class HotelReservationSystem {
@@ -104,7 +101,28 @@ public class HotelReservationSystem {
     // Get all data
     private static void viewReserveRoom(Connection conn, Scanner scn){
 
+            String sql = "SELECT * FROM reservation";
+            try(Statement stm = conn.createStatement()){
 
+                    ResultSet result = stm.executeQuery(sql);
+
+                    if(result.next()){
+
+                        String gustName = result.getString("guest_name");
+                        int roomNum = result.getInt("room_number");
+                        String contactNum = result.getString("contact_number");
+
+                        System.out.println(gustName +" "+ roomNum +" "+ contactNum);
+
+                    }else{
+                        System.out.println("Data not found");
+                    }
+
+
+            }catch(SQLException e){
+
+                    System.out.println(e.getMessage());
+            }
 
 
     }
