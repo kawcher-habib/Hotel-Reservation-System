@@ -48,7 +48,7 @@ public class HotelReservationSystem {
 //                       updateReserveRoom(conn, scn);
                        break;
                    case 5:
-//                       deleteReserveRoom(conn, scn);
+                   deleteReserveRoom(conn, scn);
                        break;
                    case 0:
 //                       exit();
@@ -141,7 +141,7 @@ public class HotelReservationSystem {
     }
 
     // Get Data By Room Number
-    private  static void getReserveRoomByRoomNumber(Connection conn, Scanner scn){
+    private static void getReserveRoomByRoomNumber(Connection conn, Scanner scn){
 
         System.out.println("Enter Your Room Number: ");
         int roomNumber = scn.nextInt();
@@ -169,6 +169,40 @@ public class HotelReservationSystem {
         }catch (SQLException e){
             System.out.print("Error: " + e.getMessage());
         }
+
+    }
+
+    //Delete Reserve Room
+
+    private static void deleteReserveRoom(Connection conn, Scanner scn){
+
+        try{
+            System.out.println("Enter Room Number: ");
+            int roomNumber = scn.nextInt();
+
+            String sql = "DELETE FROM reservation WHERE room_number=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+
+            stm.setInt(1, roomNumber);
+            int result = stm.executeUpdate();
+            if(result > 0){
+
+                System.out.println("Reserve Room "+ roomNumber +" Deleted Successfully");
+
+            }else{
+
+                System.out.println( roomNumber + " Room delete failed");
+
+            }
+
+
+        }catch(SQLException e){
+
+                System.out.println("Error: " + e.getMessage());
+        }catch(Exception e){
+            System.out.println("Invalid input. Please enter valid room number");
+        }
+
 
     }
 }
