@@ -45,7 +45,7 @@ public class HotelReservationSystem {
                        getReserveRoomByRoomNumber(conn, scn);
                        break;
                    case 4:
-//                       updateReserveRoom(conn, scn);
+                       updateReserveRoom(conn, scn);
                        break;
                    case 5:
                    deleteReserveRoom(conn, scn);
@@ -126,7 +126,7 @@ public class HotelReservationSystem {
                                 String contactNum = result.getString("contact_number");
 
 
-                                System.out.println(reservId +"\t"+ gustName + "\t" + roomNum + "\t" + contactNum);
+                                System.out.println(reservId +"\t"+ gustName + "\t\t" + roomNum + "\t\t" + contactNum);
                             }
 
 
@@ -204,6 +204,41 @@ public class HotelReservationSystem {
         }
 
 
+    }
+
+    //Updated Reserve Room
+    private static void updateReserveRoom(Connection conn, Scanner scn){
+
+
+        try{
+            System.out.println("Enter Updated Room ID :");
+            int roomId = scn.nextInt();
+            scn.nextLine();
+            System.out.println("Enter updated guest name: ");
+            String guest_name = scn.nextLine();
+            System.out.println("Enter Updated Room Number : ");
+            int roomNumber = scn.nextInt();
+            System.out.println("Enter Updated Contact Number: ");
+            String contactNumber = scn.next();
+
+            String sql = "UPDATE reservation SET guest_name=?, room_number=?,contact_number=? WHERE reser_id= ?";
+
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, guest_name);
+            stm.setInt(2, roomNumber);
+            stm.setString(3, contactNumber);
+            stm.setInt(4, roomId);
+
+            int rowsUpdate = stm.executeUpdate();
+            if(rowsUpdate > 0){
+                System.out.println(roomId + " Reserve Room Updated Successfully");
+            }
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+
+        }catch (Exception e){
+            System.out.println("Error: "+ e.getMessage());
+        }
     }
 }
 
