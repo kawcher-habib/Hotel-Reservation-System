@@ -1,4 +1,7 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ReserveRoom {
@@ -12,6 +15,7 @@ public class ReserveRoom {
 
     public void reserveRoom(){
         try{
+
             System.out.println("Enter guest name: ");
             scn.nextLine();
             String guestName = scn.nextLine();
@@ -21,12 +25,12 @@ public class ReserveRoom {
             System.out.println("Enter contact number: ");
             String contactNum = scn.next();
 
-            // Validation checker
+            // Room is available or not
             String queryForValidation = "SELECT room_number FROM reservation WHERE room_number=?";
-            PreparedStatement prstm = conn.prepareStatement(queryForValidation);
-            prstm.setInt(1, roomNum);
+            PreparedStatement validationStm = conn.prepareStatement(queryForValidation);
+            validationStm.setInt(1, roomNum);
 
-            ResultSet rs = prstm.executeQuery();
+            ResultSet rs = validationStm.executeQuery();
 
             if(!rs.next()){
 
@@ -41,15 +45,21 @@ public class ReserveRoom {
                 int affectedRows = insertStm.executeUpdate();
 
                 if(affectedRows > 0){
-                    System.out.println("Room Reserve Successfully");
+                    System.out.println("Room reserve successfully");
                 }else{
-                    System.out.println("Room Reserve Failed");
+                    System.out.println("Room reserve failed");
                 }
+
+                // Close Insert Statement
+                insertStm.close();
 
             }else{
                 System.out.println(roomNum +" Room is already reserved");
                 return;
             }
+
+            //Close validation Statement
+            validationStm.close();
 
         }catch (SQLException e){
             e.printStackTrace();
