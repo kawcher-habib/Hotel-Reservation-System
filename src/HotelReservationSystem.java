@@ -36,7 +36,8 @@ public class HotelReservationSystem {
                int choice = scn.nextInt();
                switch(choice){
                    case 1:
-                       reserveRoom(conn, scn);
+                        ReserveRoom addReserveRoom = new ReserveRoom(conn, scn);
+                        addReserveRoom.reserveRoom();
                        break;
                    case 2:
                        viewReservesRoom(conn, scn);
