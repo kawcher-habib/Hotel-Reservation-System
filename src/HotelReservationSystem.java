@@ -36,9 +36,12 @@ public class HotelReservationSystem {
                int choice = scn.nextInt();
                switch(choice){
                    case 1:
+
+                       //Inert Data
                         ReserveRoom addReserveRoom = new ReserveRoom(conn, scn);
                         addReserveRoom.reserveRoom();
                        break;
+
                    case 2:
                        viewReservesRoom(conn, scn);
                        break;
@@ -65,40 +68,6 @@ public class HotelReservationSystem {
        }catch(SQLException e){
            System.out.println(e.getMessage());
        }
-    }
-
-
-    // Insert Data
-
-    private static void reserveRoom(Connection conn, Scanner scn){
-        try{
-            System.out.println("Enter guest name: ");
-            String guestName = scn.next();
-            scn.nextLine();
-
-            System.out.println("Enter room number: ");
-            int roomNum = scn.nextInt();
-            System.out.println("Enter contact number: ");
-            String contactNum = scn.next();
-
-            String sql = "INSERT INTO reservation(guest_name, room_number, contact_number)" +
-                    "VALUES('"+guestName+"', " + roomNum + ", '"+ contactNum +"')";
-            try(Statement stm = conn.createStatement()){
-                int affectedRows = stm.executeUpdate(sql);
-
-                if(affectedRows > 0){
-                    System.out.println("Room Reserve Successfully");
-                }else{
-                    System.out.println("Room Reserve Failed");
-                }
-
-            }
-
-        }catch (SQLException e){
-            e.printStackTrace();
-
-        }
-
     }
 
     // Get all data
