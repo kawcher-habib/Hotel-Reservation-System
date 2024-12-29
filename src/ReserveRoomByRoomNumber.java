@@ -5,8 +5,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ReserveRoomByRoomNumber {
+        private Connection conn;
+        private Scanner scn;
 
-    private static void getReserveRoomByRoomNumber(Connection conn, Scanner scn){
+    ReserveRoomByRoomNumber(Connection conn, Scanner scn){
+            this.conn = conn;
+            this.scn = scn;
+        }
+    public void getReserveRoomByRoomNumber(){
 
         System.out.println("Enter Your Room Number: ");
         int roomNumber = scn.nextInt();
