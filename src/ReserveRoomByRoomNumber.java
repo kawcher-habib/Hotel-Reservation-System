@@ -37,6 +37,9 @@ public class ReserveRoomByRoomNumber {
             }else{
                 System.out.println("Data not found");
             }
+
+            //close  result statement
+            result.close();
         }catch (SQLException e){
             System.out.print("Error: " + e.getMessage());
         }
