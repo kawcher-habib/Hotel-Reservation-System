@@ -50,7 +50,10 @@ public class HotelReservationSystem {
                        break;
 
                    case 3:
-                       getReserveRoomByRoomNumber(conn, scn);
+
+                       // Show Reserve Room By Room Number
+                       ReserveRoomByRoomNumber reserveRoomByRoomNum = new ReserveRoomByRoomNumber(conn, scn);
+                       reserveRoomByRoomNum.getReserveRoomByRoomNumber();
                        break;
                    case 4:
                        updateReserveRoom(conn, scn);
