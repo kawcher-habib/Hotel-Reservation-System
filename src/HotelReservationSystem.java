@@ -55,9 +55,14 @@ public class HotelReservationSystem {
                        ReserveRoomByRoomNumber reserveRoomByRoomNum = new ReserveRoomByRoomNumber(conn, scn);
                        reserveRoomByRoomNum.getReserveRoomByRoomNumber();
                        break;
+
                    case 4:
-                       updateReserveRoom(conn, scn);
+
+                       //Updated Reserve Room
+                       UpdateReserveRoom  updateReRoom = new UpdateReserveRoom(conn, scn);
+                       updateReRoom.updateReserveRoom();
                        break;
+                       
                    case 5:
                    deleteReserveRoom(conn, scn);
                        break;
