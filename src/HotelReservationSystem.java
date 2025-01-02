@@ -64,8 +64,12 @@ public class HotelReservationSystem {
                        break;
                        
                    case 5:
-                   deleteReserveRoom(conn, scn);
+
+                       // Delete Reserve Room
+                   DeleteReserveRoom deleteRoom = new DeleteReserveRoom(conn, scn);
+                   deleteRoom.deleteReserveRoom();
                        break;
+
                    case 0:
 //                       exit();
                        scn.close();
@@ -81,10 +85,6 @@ public class HotelReservationSystem {
            System.out.println(e.getMessage());
        }
     }
-
-
-    //Delete Reserve Room
-
 
 }
 
