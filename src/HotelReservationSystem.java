@@ -27,7 +27,7 @@ public class HotelReservationSystem {
                Scanner scn = new Scanner(System.in);
                System.out.println("1. Reserve a Room");
                System.out.println("2. View Reserves Room");
-               System.out.println("3. View Room By Room Number");
+               System.out.println("3. View Reserve Room By Room Number");
                System.out.println("4. Update Reserve Room");
                System.out.println("5. Delete Reserve Room");
                System.out.println("0. Exit");
@@ -71,7 +71,7 @@ public class HotelReservationSystem {
                        break;
 
                    case 0:
-//                       exit();
+                       exit();
                        scn.close();
                        return;
                    default:
@@ -83,7 +83,26 @@ public class HotelReservationSystem {
 
        }catch(SQLException e){
            System.out.println(e.getMessage());
+       }catch (InterruptedException e){
+           throw new RuntimeException();
        }
+    }
+
+
+    //Exit Method
+
+    public static void exit() throws InterruptedException{
+
+        System.out.println("Exiting System");
+        int i = 5;
+        while(i != 0){
+            System.out.print(".");
+            Thread.sleep(450);
+            i--;
+        }
+
+        System.out.println();
+        System.out.println("Thank you for using System!!");
     }
 
 }
